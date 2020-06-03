@@ -20,11 +20,20 @@ namespace myTiles {
 `
 }
 scene.onHitWall(SpriteKind.Player, function (sprite) {
-    sprite.setPosition(120, 15)
+    mySprite.say("OUCH!", 500)
+    music.baDing.play()
+    mySprite.setPosition(120, 25)
     info.changeLifeBy(-1)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    info.changeLifeBy(1)
+    music.wawawawaa.play()
+    fresa.destroy(effects.fire, 500)
+})
+let fresa: Sprite = null
+let mySprite: Sprite = null
 info.setLife(3)
-let mySprite = sprites.create(img`
+mySprite = sprites.create(img`
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 2 2 1 1 1 1 1 2 2 1 1 1 1 1 2 2 
@@ -42,7 +51,45 @@ let mySprite = sprites.create(img`
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 `, SpriteKind.Player)
-mySprite.setPosition(120, 15)
+let mySprite2 = sprites.create(img`
+. f f f . . . . . . . . f f f . 
+f f c . . . . . . . f c b b c . 
+f c c . . . . . . f c b b c . . 
+c f . . . . . . . f b c c c . . 
+c f f . . . . . f f b b c c . . 
+f f f c c . c c f b c b b c . . 
+f f f c c c c c f b c c b c . . 
+. f c 3 c c 3 b c b c c c . . . 
+. c b 3 b c 3 b b c c c c . . . 
+c c b b b b b b b b c c . . . . 
+c 1 1 b b b 1 1 b b b f c . . . 
+f b b b b b b b b b b f c c . . 
+f b c b b b c b b b b f . . . . 
+. f 1 f f f 1 b b b c f . . . . 
+. . f b b b b b b c f . . . . . 
+. . . f f f f f f f . . . . . . 
+`, SpriteKind.Enemy)
+fresa = sprites.create(img`
+. . . . . . . 6 . . . . . . . . 
+. . . . . . 8 6 6 . . . 6 8 . . 
+. . . e e e 8 8 6 6 . 6 7 8 . . 
+. . e 2 2 2 2 e 8 6 6 7 6 . . . 
+. e 2 2 4 4 2 7 7 7 7 7 8 6 . . 
+. e 2 4 4 2 6 7 7 7 6 7 6 8 8 . 
+e 2 4 5 2 2 6 7 7 6 2 7 7 6 . . 
+e 2 4 4 2 2 6 7 6 2 2 6 7 7 6 . 
+e 2 4 2 2 2 6 6 2 2 2 e 7 7 6 . 
+e 2 4 2 2 4 2 2 2 4 2 2 e 7 6 . 
+e 2 4 2 2 2 2 2 2 2 2 2 e c 6 . 
+e 2 2 2 2 2 2 2 4 e 2 e e c . . 
+e e 2 e 2 2 4 2 2 e e e c . . . 
+e e e e 2 e 2 2 e e e c . . . . 
+e e e 2 e e c e c c c . . . . . 
+. c c c c c c c . . . . . . . . 
+`, SpriteKind.Food)
+mySprite.setPosition(120, 20)
+mySprite2.setPosition(120, 60)
+mySprite2.setVelocity(30, 30)
 controller.moveSprite(mySprite)
 scene.setBackgroundImage(img`
 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
@@ -167,26 +214,29 @@ scene.setBackgroundImage(img`
 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
 `)
 tiles.setTilemap(tiles.createTilemap(
-            hex`1000100002020202020201010102020202020202020202020202010101020202020202020202020202020101010202020202020202020202020201010102020202020202020202020202010101020202020202020202020201010101010101020202020202020202010101010101010202020202010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101020202020101010101010102020202020202020201010101010101020202020202020202020201010102020202020202020202020202010101020202020202020202020202020101010202020202020202020202020201010102020202020202`,
+            hex`320010000202020202020101010202020202020205050505050505050f0101010101171111111111111111111111111111111111111102020202020201010102020202020202050505050505050f0101010101010117111111111111111111111111111111111111020202020202010101020202020202020505050505050f0101010101010101011711111111111111111111111111111111110202020202020101010202020202020205050505050f0101010101040101010101171111111111111111111111111111111102020202020201010102020202020202050505050f0101010101040404010101010117111111111111111111111111111111020202020101010101010102020202020505050f010101010104040404040101010101171111111111111111111111111111020202020101010101010102020202020f0f0f01010101010404040404040401010101011717171717171717171717171717010101010101010101010101010101010101010101010104040404040404040401010101010101010101010101010101010101010101010101010101010101010101010101010101010404040404040404040101010101010101010101010101010101010101010101010101010101010101010101010101010101010404040404040401010101010101010101010101010101010101020202020101010101010102020202020c06061e0101010101040404040401010101011d1d1d1d1d1d1d1d1d1d1d1d1d1d1d02020202010101010101010202020202090909090d010101010104040401010101011d1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b0202020202020101010202020202020209090909090d01010101010401010101011d1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b020202020202010101020202020202020909090909090d0101010101010101011d1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b02020202020201010102020202020202090909090909090d010101010101011d1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b0202020202020101010202020202020209090909090909090d01010101011d1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b`,
             img`
-. . . . . 2 . . . 2 . . . . . . 
-. . . . . 2 . . . 2 . . . . . . 
-. . . . . 2 . . . 2 . . . . . . 
-. . . . . 2 . . . 2 . . . . . . 
-. . . 2 2 2 . . . 2 2 2 . . . . 
-. . . 2 . . . . . . . 2 . . . . 
-2 2 2 2 . . . . . . . 2 2 2 2 2 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-2 2 2 2 . . . . . . . 2 2 2 2 2 
-. . . 2 . . . . . . . 2 . . . . 
-. . . 2 2 2 . . . 2 2 2 . . . . 
-. . . . . 2 . . . 2 . . . . . . 
-. . . . . 2 . . . 2 . . . . . . 
-. . . . . 2 . . . 2 . . . . . . 
+. . . . . 2 . . . 2 . . . . . . . . . . . . . . 2 . . . . . 2 . . . . . . . . . . . . . . . . . . . 
+. . . . . 2 . . . 2 . . . . . . . . . . . . . 2 . . . . . . . 2 . . . . . . . . . . . . . . . . . . 
+. . . . . 2 . . . 2 . . . . . . . . . . . . 2 . . . . . . . . . 2 . . . . . . . . . . . . . . . . . 
+. . . . . 2 . . . 2 . . . . . . . . . . . 2 . . . . . 2 . . . . . 2 . . . . . . . . . . . . . . . . 
+. . . 2 2 2 . . . 2 2 2 . . . . . . . . 2 . . . . . 2 . 2 . . . . . 2 . . . . . . . . . . . . . . . 
+. . . 2 . . . . . . . 2 . . . . . . . 2 . . . . . 2 . . . 2 . . . . . 2 . . . . . . . . . . . . . . 
+2 2 2 2 . . . . . . . 2 2 2 2 2 2 2 2 . . . . . 2 . . . . . 2 . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+. . . . . . . . . . . . . . . . . . . . . . . 2 . . . . . . . 2 . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . 2 . . . . . . . 2 . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . 2 . . . . . 2 . . . . . . . . . . . . . . . . . . . 
+2 2 2 2 . . . . . . . 2 2 2 2 2 2 2 2 2 . . . . . 2 . . . 2 . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+. . . 2 . . . . . . . 2 . . . . . . . . 2 . . . . . 2 . 2 . . . . . 2 . . . . . . . . . . . . . . . 
+. . . 2 2 2 . . . 2 2 2 . . . . . . . . . 2 . . . . . 2 . . . . . 2 . . . . . . . . . . . . . . . . 
+. . . . . 2 . . . 2 . . . . . . . . . . . . 2 . . . . . . . . . 2 . . . . . . . . . . . . . . . . . 
+. . . . . 2 . . . 2 . . . . . . . . . . . . . 2 . . . . . . . 2 . . . . . . . . . . . . . . . . . . 
+. . . . . 2 . . . 2 . . . . . . . . . . . . . . 2 . . . . . 2 . . . . . . . . . . . . . . . . . . . 
 `,
-            [myTiles.tile0,sprites.castle.tilePath5,sprites.castle.tileGrass2],
+            [myTiles.tile0,sprites.castle.tilePath5,sprites.castle.tileGrass2,sprites.builtin.oceanSand7,sprites.builtin.oceanSand11,sprites.dungeon.darkGroundSouthWest1,sprites.dungeon.greenOuterNorth0,sprites.dungeon.floorDark0,sprites.dungeon.greenOuterEast2,sprites.builtin.coral5,sprites.dungeon.doorOpenWest,sprites.dungeon.doorOpenEast,sprites.dungeon.greenOuterNorthWest,sprites.dungeon.greenOuterNorthEast,sprites.builtin.oceanSand8,sprites.castle.tileDarkGrass2,sprites.builtin.oceanDepths10,sprites.builtin.oceanSand0,sprites.builtin.forestTiles13,sprites.builtin.forestTiles17,sprites.builtin.forestTiles18,sprites.builtin.forestTiles19,sprites.builtin.forestTiles27,sprites.builtin.forestTiles22,sprites.builtin.crowd1,sprites.dungeon.hazardWater,sprites.dungeon.hazardLava0,sprites.builtin.field0,sprites.dungeon.hazardSpike,sprites.dungeon.buttonOrange,sprites.dungeon.greenOuterNorth1],
             TileScale.Sixteen
         ))
 scene.cameraFollowSprite(mySprite)
+mySprite.startEffect(effects.rings)
+mySprite2.setFlag(SpriteFlag.BounceOnWall, true)
+fresa.setPosition(300, 135)
