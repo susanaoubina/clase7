@@ -21,7 +21,9 @@ namespace myTiles {
 }
 scene.onHitWall(SpriteKind.Player, function (sprite) {
     sprite.setPosition(120, 15)
+    info.changeLifeBy(-1)
 })
+info.setLife(3)
 let mySprite = sprites.create(img`
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
