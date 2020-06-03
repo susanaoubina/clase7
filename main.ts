@@ -20,9 +20,9 @@ namespace myTiles {
 `
 }
 scene.onHitWall(SpriteKind.Player, function (sprite) {
-    mySprite.say("OUCH!", 500)
+    MiPersonaje.say("OUCH!", 500)
     music.baDing.play()
-    mySprite.setPosition(120, 25)
+    MiPersonaje.setPosition(120, 25)
     info.changeLifeBy(-1)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
@@ -31,9 +31,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
     fresa.destroy(effects.fire, 500)
 })
 let fresa: Sprite = null
-let mySprite: Sprite = null
+let MiPersonaje: Sprite = null
 info.setLife(3)
-mySprite = sprites.create(img`
+MiPersonaje = sprites.create(img`
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 2 2 1 1 1 1 1 2 2 1 1 1 1 1 2 2 
@@ -51,7 +51,7 @@ mySprite = sprites.create(img`
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 `, SpriteKind.Player)
-let mySprite2 = sprites.create(img`
+let Enemigo = sprites.create(img`
 . f f f . . . . . . . . f f f . 
 f f c . . . . . . . f c b b c . 
 f c c . . . . . . f c b b c . . 
@@ -87,10 +87,10 @@ e e e e 2 e 2 2 e e e c . . . .
 e e e 2 e e c e c c c . . . . . 
 . c c c c c c c . . . . . . . . 
 `, SpriteKind.Food)
-mySprite.setPosition(120, 20)
-mySprite2.setPosition(120, 60)
-mySprite2.setVelocity(30, 30)
-controller.moveSprite(mySprite)
+MiPersonaje.setPosition(120, 20)
+Enemigo.setPosition(120, 60)
+Enemigo.setVelocity(30, 30)
+controller.moveSprite(MiPersonaje)
 scene.setBackgroundImage(img`
 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
@@ -236,7 +236,12 @@ tiles.setTilemap(tiles.createTilemap(
             [myTiles.tile0,sprites.castle.tilePath5,sprites.castle.tileGrass2,sprites.builtin.oceanSand7,sprites.builtin.oceanSand11,sprites.dungeon.darkGroundSouthWest1,sprites.dungeon.greenOuterNorth0,sprites.dungeon.floorDark0,sprites.dungeon.greenOuterEast2,sprites.builtin.coral5,sprites.dungeon.doorOpenWest,sprites.dungeon.doorOpenEast,sprites.dungeon.greenOuterNorthWest,sprites.dungeon.greenOuterNorthEast,sprites.builtin.oceanSand8,sprites.castle.tileDarkGrass2,sprites.builtin.oceanDepths10,sprites.builtin.oceanSand0,sprites.builtin.forestTiles13,sprites.builtin.forestTiles17,sprites.builtin.forestTiles18,sprites.builtin.forestTiles19,sprites.builtin.forestTiles27,sprites.builtin.forestTiles22,sprites.builtin.crowd1,sprites.dungeon.hazardWater,sprites.dungeon.hazardLava0,sprites.builtin.field0,sprites.dungeon.hazardSpike,sprites.dungeon.buttonOrange,sprites.dungeon.greenOuterNorth1],
             TileScale.Sixteen
         ))
-scene.cameraFollowSprite(mySprite)
-mySprite.startEffect(effects.rings)
-mySprite2.setFlag(SpriteFlag.BounceOnWall, true)
+scene.cameraFollowSprite(MiPersonaje)
+MiPersonaje.startEffect(effects.rings)
+Enemigo.setFlag(SpriteFlag.BounceOnWall, true)
 fresa.setPosition(300, 135)
+forever(function () {
+    if (MiPersonaje.overlapsWith(Enemigo)) {
+        game.over(false, effects.dissolve)
+    }
+})
