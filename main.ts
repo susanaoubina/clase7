@@ -19,6 +19,9 @@ namespace myTiles {
 . . . . . . . . . . . . . . . . 
 `
 }
+scene.onOverlapTile(SpriteKind.Player, myTiles.tile0, function (sprite, location) {
+	
+})
 scene.onHitWall(SpriteKind.Player, function (sprite) {
     MiPersonaje.say("OUCH!", 500)
     music.baDing.play()
@@ -27,7 +30,7 @@ scene.onHitWall(SpriteKind.Player, function (sprite) {
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     info.changeLifeBy(1)
-    music.wawawawaa.play()
+    music.baDing.play()
     fresa.destroy(effects.fire, 500)
 })
 let fresa: Sprite = null
@@ -241,7 +244,11 @@ MiPersonaje.startEffect(effects.rings)
 Enemigo.setFlag(SpriteFlag.BounceOnWall, true)
 fresa.setPosition(300, 135)
 forever(function () {
+    MiPersonaje.setFlag(SpriteFlag.ShowPhysics, true)
     if (MiPersonaje.overlapsWith(Enemigo)) {
         game.over(false, effects.dissolve)
+    }
+    if (MiPersonaje.x > 780) {
+        game.over(true, effects.smiles)
     }
 })
