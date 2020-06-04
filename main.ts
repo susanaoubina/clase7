@@ -1,3 +1,6 @@
+namespace SpriteKind {
+    export const Score = SpriteKind.create()
+}
 namespace myTiles {
     //% blockIdentity=images._tile
     export const tile0 = img`
@@ -19,9 +22,90 @@ namespace myTiles {
 . . . . . . . . . . . . . . . . 
 `
 }
-scene.onOverlapTile(SpriteKind.Player, myTiles.tile0, function (sprite, location) {
-	
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Score, function (sprite, otherSprite) {
+    info.changeScoreBy(10)
+    music.baDing.play()
+    otherSprite.destroy(effects.starField, 500)
 })
+function CrearPuntos (mySprite: Sprite) {
+    Numero = 1
+    if (Numero == 1) {
+        SpritePuntos = sprites.create(img`
+. 6 . . . . . . . . . . . . 6 . 
+6 9 6 . . . . . . . . . . 6 9 6 
+. 6 . . . . . . . . . . . . 6 . 
+. 6 . . . . . . . . . . . . 6 . 
+. 6 9 9 9 9 9 9 9 9 9 9 9 9 6 . 
+. 6 9 9 9 9 9 9 9 9 9 9 9 9 6 . 
+9 6 9 1 1 1 9 9 9 9 1 1 1 9 6 9 
+9 6 9 1 1 f 9 9 9 9 1 f 1 9 6 9 
+9 6 9 1 f f 9 9 9 9 f f 1 9 6 9 
+9 6 9 9 9 9 9 9 9 9 9 9 9 9 6 9 
+. 6 9 9 6 1 1 1 1 1 1 6 9 9 6 . 
+. . 9 9 9 6 6 6 6 6 6 9 9 9 . . 
+. . 9 9 9 9 9 9 9 9 9 9 9 9 . . 
+`, SpriteKind.Score)
+        SpritePuntos.setPosition(78, 90)
+        Numero += 1
+    }
+    if (Numero == 2) {
+        SpritePuntos = sprites.create(img`
+. 6 . . . . . . . . . . . . 6 . 
+6 7 6 . . . . . . . . . . 6 7 6 
+. 6 . . . . . . . . . . . . 6 . 
+. 6 . . . . . . . . . . . . 6 . 
+. 6 7 7 7 7 7 7 7 7 7 7 7 7 6 . 
+. 6 7 7 7 7 7 7 7 7 7 7 7 7 6 . 
+7 6 7 1 1 1 7 7 7 7 1 1 1 7 6 7 
+7 6 7 1 1 f 7 7 7 7 1 f 1 7 6 7 
+7 6 7 1 f f 7 7 7 7 f f 1 7 6 7 
+7 6 7 7 7 7 7 7 7 7 7 7 7 7 6 7 
+. 6 7 7 6 1 1 1 1 1 1 6 7 7 6 . 
+. . 7 7 7 6 6 6 6 6 6 7 7 7 . . 
+. . 7 7 7 7 7 7 7 7 7 7 7 7 . . 
+`, SpriteKind.Score)
+        SpritePuntos.setPosition(120, 245)
+        Numero += 1
+    }
+    if (Numero == 3) {
+        SpritePuntos = sprites.create(img`
+. 3 . . . . . . . . . . . . 3 . 
+3 7 3 . . . . . . . . . . 3 7 3 
+. 3 . . . . . . . . . . . . 3 . 
+. 3 . . . . . . . . . . . . 3 . 
+. 3 7 7 7 7 7 7 7 7 7 7 7 7 3 . 
+. 3 7 7 7 7 7 7 7 7 7 7 7 7 3 . 
+7 3 7 2 2 2 7 7 7 7 2 2 2 7 3 7 
+7 3 7 2 2 f 7 7 7 7 2 f 2 7 3 7 
+7 3 7 2 f f 7 7 7 7 f f 2 7 3 7 
+7 3 7 7 7 7 7 7 7 7 7 7 7 7 3 7 
+. 3 7 7 3 2 2 2 2 2 2 3 7 7 3 . 
+. . 7 7 7 3 3 3 3 3 3 7 7 7 . . 
+. . 7 7 7 7 7 7 7 7 7 7 7 7 . . 
+`, SpriteKind.Score)
+        SpritePuntos.setPosition(375, 150)
+        Numero += 1
+    }
+    if (Numero == 4) {
+        SpritePuntos = sprites.create(img`
+. 4 . . . . . . . . . . . . 4 . 
+4 8 4 . . . . . . . . . . 4 8 4 
+. 4 . . . . . . . . . . . . 4 . 
+. 4 . . . . . . . . . . . . 4 . 
+. 4 8 8 8 8 8 8 8 8 8 8 8 8 4 . 
+. 4 8 8 8 8 8 8 8 8 8 8 8 8 4 . 
+8 4 8 1 1 1 8 8 8 8 1 1 1 8 4 8 
+8 4 8 1 1 f 8 8 8 8 1 f 1 8 4 8 
+8 4 8 1 f f 8 8 8 8 f f 1 8 4 8 
+8 4 8 8 8 8 8 8 8 8 8 8 8 8 4 8 
+. 4 8 8 4 1 1 1 1 1 1 4 8 8 4 . 
+. . 8 8 8 4 4 4 4 4 4 8 8 8 . . 
+. . 8 8 8 8 8 8 8 8 8 8 8 8 . . 
+`, SpriteKind.Score)
+        SpritePuntos.setPosition(440, 15)
+        Numero += 1
+    }
+}
 scene.onHitWall(SpriteKind.Player, function (sprite) {
     MiPersonaje.say("OUCH!", 500)
     music.baDing.play()
@@ -33,9 +117,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
     music.baDing.play()
     fresa.destroy(effects.fire, 500)
 })
+let Numero = 0
+let SpritePuntos: Sprite = null
 let fresa: Sprite = null
 let MiPersonaje: Sprite = null
 info.setLife(3)
+info.setScore(0)
 MiPersonaje = sprites.create(img`
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
@@ -243,6 +330,7 @@ scene.cameraFollowSprite(MiPersonaje)
 MiPersonaje.startEffect(effects.rings)
 Enemigo.setFlag(SpriteFlag.BounceOnWall, true)
 fresa.setPosition(300, 135)
+CrearPuntos(SpritePuntos)
 forever(function () {
     MiPersonaje.setFlag(SpriteFlag.ShowPhysics, true)
     if (MiPersonaje.overlapsWith(Enemigo)) {
